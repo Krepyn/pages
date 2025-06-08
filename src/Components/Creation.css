@@ -1,0 +1,25 @@
+input {
+    display:inline-block;
+    text-align: right;
+    margin: 5px;
+}
+
+input[type=text] {
+    width: 40px;
+}
+
+p {
+    display:inline-block;
+    width: 50px;
+    padding: 5px;
+    margin: 5px;
+    text-align: right;
+}
+
+p.totalCost {
+    width: 100px!important;
+    text-wrap: nowrap;
+    vertical-align: bottom;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
