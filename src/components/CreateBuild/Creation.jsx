@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { scientificNotation, floor } from '../Utils/Helpers';
-import { useCreationsContext } from '../Contexts/CreationsContext';
+import { scientificNotation, floor } from '../../utils/Helpers';
+import { useCreationsContext } from '../../contexts/CreationsContext';
 import './Creation.css'
 
 function Creation({creationID, creation}) {
@@ -47,15 +47,15 @@ function Creation({creationID, creation}) {
 
     // Runs if totalPreReqs changes
     useEffect(() =>{         
-        function setPreReqs() {
-            // Passing on preReqs
+        // Sets PreReqs this creation needs to be crafted in the context
+        function setPreReqs() {            
             if(preReqs){
                 const reqsKeys = Object.keys(preReqs);
                 const tempPreReqs = totalPreReqs[creationID];
                 for(let i = 0; i <= reqsKeys.length; i++){
                     tempPreReqs[parseInt(reqsKeys[i])] = preReqs[reqsKeys[i]] * (needAmount - craftAmount);
                 }
-                setTotalPreReqs({...totalPreReqs, [creationID]: tempPreReqs})            
+                setTotalPreReqs({...totalPreReqs, [creationID]: tempPreReqs}) // need to update like this so it triggers rerenders on other creation components     
                 // console.log('Creation:' + creation.name)
                 // console.log('reqsKeys:' + reqsKeys[0])
                 // console.log('preReqs Amount:' + preReqs[reqsKeys[0]])
@@ -66,7 +66,9 @@ function Creation({creationID, creation}) {
         setPreReqs()
     }, [totalPreReqs, setTotalPreReqs, preReqs, creationID, needAmount, craftAmount]);
 
+    // Runs if pretty much anything that is only inside this component changes
     useEffect(() => {             
+        // Saves data to localStorage so it can persist
         function saveData() {
             localStorage.setItem(creation.name, JSON.stringify(creations))
         }    

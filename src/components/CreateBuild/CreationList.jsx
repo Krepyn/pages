@@ -1,11 +1,11 @@
-import "./CreationList.css"
 import Creation from './Creation.jsx'
 import { useState } from "react"
-import { creationsContext } from "../Contexts/CreationsContext.jsx"
+import { creationsContext } from "../../contexts/CreationsContext.jsx"
 
 
 const creationsObject = (name, baseCost, preReqs) => { return {name: name, baseCost: baseCost, preReqs: preReqs}}
 
+// Commented numbers are creationIDs
 const creations =  [creationsObject('Light', 1250), // 0
                     creationsObject('Stone', 1250), // 1
                     creationsObject('Soil', 4050, {1: 1}), // 2
@@ -42,14 +42,9 @@ for(let i =0; i < creations.length; i++){
 }
 
 export function CreationList() {
-    // List of prereqs that will be passed in between lower level classes
-    // Can probably make a list of which creation needs which creations to craft by making an array of creations
-    // ie. with a total of 4 creations where each creation needs 1 of each of earlier creations
-    // ie. {{0, 0, 0, 0}, {1, 0, 0, 0}, {1, 1, 0, 0}, {1, 1, 1, 0}}
-    // Split into basePrereqs which is constant and totalPrereqs which is variable
-    // basePrereqs will be the amount for 1 creation
-    // totalPrereqs will be the amount for total creations needed by each individual creation             
-    // Can also include basePrereqs into creations list
+    // An array of prerequisites for each creation that is to be filled by Creation Components
+    // Default value is 28x28 array filled with zeroes
+    // Each creation has an array for itself, and inside that array each creation sets the amount it needs as prerequisites by indexing over creationID of other creations
     const [totalPreReqs, setTotalPreReqs] = useState(()=> {
         const x = []
         for(let i = 0; i <= 27; i++){ // Fill totalprereqs with 0

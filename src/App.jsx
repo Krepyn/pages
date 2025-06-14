@@ -1,22 +1,38 @@
 //import { useState } from 'react'
 import './App.css'
-import CreationList from './Components/CreationList.jsx'
+import { HashRouter as Router, Route, NavLink, Routes } from 'react-router-dom'
+import CreationList from './components/CreateBuild/CreationList.jsx'
 
 function App() {
-  //const [count, setCount] = useState(0)
 
-  return (
-    <>
-      
-      <h1>ITRTG Stuff</h1>
-      <div>
-        <CreationList />
-      </div>
-      <div className="card">
-        
-      </div>      
-    </>
-  )
+    return (
+        <>
+            <Router>
+                {/* Navbar  */}
+                <nav>
+                    <ul className='navbar'>    
+                        <li className='navbar-li'>
+                            <NavLink className='navlink' to='/'>ITRTG Stuff</NavLink>
+                        </li>
+                        <li className='navbar-li'>
+                            <NavLink className='navlink' to='/create-build'>CreateBuild</NavLink>
+                        </li>
+                        <div className='middle-space'></div>
+                        <li className='navbar-li'>
+                            <NavLink className='navlink' to='/about'>About</NavLink>
+                        </li>
+                    </ul>
+                </nav>
+                
+                {/* Content */}
+                <Routes>
+                    <Route exact='true' path='/' element={<div />}/>
+                    <Route exact='true' path='/create-build' element={<CreationList />} />
+                </Routes>
+
+            </Router>
+        </>
+    )
 }
 
-export default App
+export default App;
