@@ -25,13 +25,31 @@ function Creation({creationID, creation}) {
             tempPreReqs = tempPreReqs + totalPreReqs[i][creationID]; 
         }
         return tempPreReqs
-    }    
+    }     
+
+    // Sets PreReqs this creation needs to be crafted in the context
+    function setPreReqs() {            
+        if(preReqs){
+            const reqsKeys = Object.keys(preReqs);
+            const tempPreReqs = totalPreReqs[creationID];
+            for(let i = 0; i <= reqsKeys.length; i++){
+                tempPreReqs[parseInt(reqsKeys[i])] = preReqs[reqsKeys[i]] * (needAmount - craftAmount);
+            }
+            
+                setTotalPreReqs({...totalPreReqs, [creationID]: tempPreReqs}) // need to update like this so it triggers rerenders on other creation components     
+            // console.log('Creation:' + creation.name)
+            // console.log('reqsKeys:' + reqsKeys[0])
+            // console.log('preReqs Amount:' + preReqs[reqsKeys[0]])
+            // console.log('Craft Amount:' + craftAmount)
+            // console.log(totalPreReqs[creationID]);
+        }
+    }  
 
     function handleChange(event) {
         const value = event.target.value
         //var tempCreations = creations
 
-        if(event.target.name == 'buy') { // Checkbox needs special treatment
+        if(event.target.name == 'buy') { // Checkbox needs special treatments
             setCreations({...creations,
                         [event.target.name]: !creations[event.target.name]})
             //tempCreations = {...creations, [event.target.name]: !creations[event.target.name]}
@@ -39,32 +57,16 @@ function Creation({creationID, creation}) {
             setCreations({...creations,
                         [event.target.name]: value}) 
             //tempCreations = {...creations, [event.target.name]: value}
-        }                         
+        }      
+        setPreReqs()                   
 
         // setPreReqs(tempCreations)
         // console.log(creation.name, creations.buy);
     }
 
-    // Runs if totalPreReqs changes
-    useEffect(() =>{         
-        // Sets PreReqs this creation needs to be crafted in the context
-        function setPreReqs() {            
-            if(preReqs){
-                const reqsKeys = Object.keys(preReqs);
-                const tempPreReqs = totalPreReqs[creationID];
-                for(let i = 0; i <= reqsKeys.length; i++){
-                    tempPreReqs[parseInt(reqsKeys[i])] = preReqs[reqsKeys[i]] * (needAmount - craftAmount);
-                }
-                setTotalPreReqs({...totalPreReqs, [creationID]: tempPreReqs}) // need to update like this so it triggers rerenders on other creation components     
-                // console.log('Creation:' + creation.name)
-                // console.log('reqsKeys:' + reqsKeys[0])
-                // console.log('preReqs Amount:' + preReqs[reqsKeys[0]])
-                // console.log('Craft Amount:' + craftAmount)
-                // console.log(totalPreReqs[creationID]);
-            }
-        }
+    useEffect(() => {
         setPreReqs()
-    }, [totalPreReqs, setTotalPreReqs, preReqs, creationID, needAmount, craftAmount]);
+    }, [creations, needAmount])
 
     // Runs if pretty much anything that is only inside this component changes
     useEffect(() => {             
