@@ -2,6 +2,7 @@
 import './App.css'
 import { HashRouter as Router, Route, NavLink, Routes } from 'react-router-dom'
 import CreationList from './components/CreateBuild/CreationList.jsx'
+import Home from './components/Content/Home.jsx'
 
 function App() {
 
@@ -26,7 +27,7 @@ function App() {
                 
                 {/* Content */}
                 <Routes>
-                    <Route exact='true' path='/' element={<div />}/>
+                    <Route exact='true' path='/' element={<Home />}/>
                     <Route exact='true' path='/create-build' element={<CreationList />} />
                 </Routes>
 
