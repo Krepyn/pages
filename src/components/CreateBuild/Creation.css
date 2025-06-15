@@ -1,18 +1,18 @@
-form {
+.creations-form {
     zoom: 75%;
 }
 
-input {
+.creations-input {
     display:inline-block;
     text-align: right;
     margin: 0px 5px 0px 5px;
-}
+}   
 
-input[type=text] {
+input[type=text].creations-input  {
     width: 40px;
 }
 
-p {
+.creations-form > p {
     display:inline-block;
     width: 200px;
     padding: 0px 5px 0px 5px;
@@ -20,8 +20,8 @@ p {
     text-align: right;
 }
 
-p.totalCost {
-    width: 200px!important;
+.creations-followup {
+    width: 100px!important;
     text-wrap: nowrap;
     vertical-align: bottom;
     overflow: hidden;

@@ -64,11 +64,11 @@ function Creation({creationID, creation}) {
         // console.log(creation.name, creations.buy);
     }
 
+    
     useEffect(() => {
         setPreReqs()
     }, [creations, needAmount])
 
-    // Runs if pretty much anything that is only inside this component changes
     useEffect(() => {             
         // Saves data to localStorage so it can persist
         function saveData() {
@@ -80,13 +80,13 @@ function Creation({creationID, creation}) {
     
 
     return(
-        <form>
+        <form className='creations-form'>
                <p>{creation.name}</p>
-               <input name='buy' type="checkbox" defaultChecked={creations.buy} value={creations.buy} onChange={handleChange}/>
-               <input name='have' placeholder='0' value={creations.have} type='text' onChange={handleChange}/>
-               <input name='want' placeholder='0' value={creations.want} type='text' onChange={handleChange}/>
-               <p className='totalCost'>Cost: {scientificNotation(floor(totalCost))}</p>
-               <p className='totalCost'>nextAt: {scientificNotation(floor(nextAtAmount))}</p>
+               <input name='buy' className='creations-input' type="checkbox" defaultChecked={creations.buy} value={creations.buy} onChange={handleChange}/>
+               <input name='have' className='creations-input' placeholder='0' value={creations.have} type='text' onChange={handleChange}/>
+               <input name='want' className='creations-input' placeholder='0' value={creations.want} type='text' onChange={handleChange}/>
+               <p className='creations-followup'>Cost: {scientificNotation(floor(totalCost))}</p>
+               <p className='creations-followup'>nextAt: {scientificNotation(floor(nextAtAmount))}</p>
                <br />  
         </form>
     )
